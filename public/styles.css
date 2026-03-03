@@ -429,3 +429,12 @@ footer p { line-height: 1.8; opacity: 0.9; }
 @media (max-width: 400px) {
     .checkbox-grid { grid-template-columns: 1fr; }
 }
+.btn-violeta {
+    background: var(--primary);
+    color: white;
+    width: 100%;
+}
+.btn-violeta:hover {
+    background: var(--primary-light);
+    transform: translateY(-2px);
+}
