@@ -5,16 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>6M – Donde cabemos todxs | FLACSO</title>
     <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="theme-toggle" aria-label="Alternar modo oscuro">🌙/☀️</button>
+    <button id="theme-toggle" aria-label="Alternar modo oscuro">🌙</button>
 
     <header class="hero">
-        <div class="hero-overlay"></div>
+        <div class="hero-bg-shapes">
+            <span class="shape s1"></span>
+            <span class="shape s2"></span>
+            <span class="shape s3"></span>
+        </div>
         <div class="hero-content fade-in">
+            <p class="hero-eyebrow">FLACSO · 6 de marzo · 16:00</p>
             <h1>6M – Donde cabemos todxs</h1>
-            <p>Este viernes 6 de marzo a las 16:00 abrimos un espacio para hacer memoria, alzar la voz y crear un espacio colectivo de reflexión, denuncia y resistencia.</p>
+            <p class="hero-sub">Abrimos un espacio para hacer memoria, alzar la voz y crear comunidad colectiva de reflexión, denuncia y resistencia.</p>
             <div class="countdown" id="countdown">Cargando contador...</div>
             <div class="cta-buttons">
                 <a href="#emprendimientos" class="btn btn-primary">Registrar emprendimiento</a>
@@ -25,23 +30,58 @@
 
     <main>
         <section id="actividades" class="section">
-            <h2 class="section-title">Actividades de la Jornada</h2>
-            <p class="section-subtitle">Este será un espacio de respeto, escucha y acompañamiento. No estás sola. Tu voz importa.</p>
+            <div class="section-header">
+                <h2 class="section-title">Actividades de la Jornada</h2>
+                <p class="section-subtitle">Este será un espacio de respeto, escucha y acompañamiento.<br>No estás sola. Tu voz importa.</p>
+            </div>
             <div class="grid-cards">
-                <div class="card"><h3>🎤 Micrófono abierto</h3></div>
-                <div class="card"><h3>🎨 Carteleada</h3></div>
-                <div class="card"><h3>🖐️ Sábana "Me Too" y muro de la memoria</h3></div>
-                <div class="card"><h3>🛍️ Feria de emprendimientos</h3></div>
-                <div class="card"><h3>🎶 Ensamble musical Sol Violeta</h3></div>
-                <div class="card"><h3>☕ Canelazo</h3></div>
+                <div class="card">
+                    <div class="card-icon">🎤</div>
+                    <h3>Micrófono abierto</h3>
+                    <p class="card-desc">Comparte historias, reflexiones o mensajes. Puedes participar de forma presencial o enviar tu testimonio de manera anónima.</p>
+                    <p class="card-quote">"Cuando las mujeres hablan, el mundo cambia."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎨</div>
+                    <h3>Carteleada</h3>
+                    <p class="card-desc">Creación colectiva de consignas y carteles rumbo al 8M. Tu mensaje en tus manos.</p>
+                    <p class="card-quote">"El arte es la forma más política de resistir."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🖐️</div>
+                    <h3>Sábana "Me Too" y muro de la memoria</h3>
+                    <p class="card-desc">Espacios simbólicos contra la violencia. Un lugar para nombrar, recordar y sanar juntas.</p>
+                    <p class="card-quote">"Nombrar la violencia es el primer paso para erradicarla."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🛍️</div>
+                    <h3>Feria de emprendimientos</h3>
+                    <p class="card-desc">Apoya iniciativas de mujeres y diversidades dentro de nuestra universidad. Economía feminista en acción.</p>
+                    <p class="card-quote">"Apoyar a una mujer es fortalecer a toda la comunidad."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">🎶</div>
+                    <h3>Ensamble musical Sol Violeta</h3>
+                    <p class="card-desc">Presentación especial del ensamble Sol Violeta. Música que vibra con nuestra lucha y nuestra alegría.</p>
+                    <p class="card-quote">"La música es el lenguaje que el alma habla cuando las palabras no alcanzan."</p>
+                </div>
+                <div class="card">
+                    <div class="card-icon">☕</div>
+                    <h3>Canelazo</h3>
+                    <p class="card-desc">Calor colectivo para acompañar la jornada. Porque las luchas también se construyen con abrigo y comunidad.</p>
+                    <p class="card-quote">"La sororidad se siente más cálida compartida."</p>
+                </div>
             </div>
         </section>
 
         <section id="emprendimientos" class="section bg-light">
-            <h2 class="section-title">Registra tu Emprendimiento</h2>
+            <div class="section-header">
+                <h2 class="section-title">Registra tu Emprendimiento</h2>
+                <p class="section-subtitle">Sé parte de la feria y muestra tu trabajo a la comunidad.</p>
+            </div>
             <form id="form-emprendimiento" class="accessible-form">
                 <label for="emp-nombre">Nombre del emprendimiento *</label>
-                <input type="text" id="emp-nombre" required>
+                <input type="text" id="emp-nombre" placeholder="Ej: Tejidos Colectivo Luna" required>
 
                 <label for="emp-tipo">Tipo de emprendimiento *</label>
                 <select id="emp-tipo" required>
@@ -53,32 +93,36 @@
                 </select>
 
                 <label for="emp-desc">Breve descripción *</label>
-                <textarea id="emp-desc" required></textarea>
+                <textarea id="emp-desc" placeholder="Cuéntanos qué ofreces..." required></textarea>
 
                 <fieldset>
                     <legend>¿Qué necesitas para el día del evento?</legend>
-                    <label><input type="checkbox" name="necesidades" value="Stand"> Stand</label>
-                    <label><input type="checkbox" name="necesidades" value="Mesa"> Mesa</label>
-                    <label><input type="checkbox" name="necesidades" value="Silla"> Silla</label>
-                    <label><input type="checkbox" name="necesidades" value="Carpa"> Carpa</label>
-                    <label><input type="checkbox" name="necesidades" value="Punto eléctrico"> Punto eléctrico</label>
+                    <div class="checkbox-grid">
+                        <label class="check-label"><input type="checkbox" name="necesidades" value="Stand"> Stand</label>
+                        <label class="check-label"><input type="checkbox" name="necesidades" value="Mesa"> Mesa</label>
+                        <label class="check-label"><input type="checkbox" name="necesidades" value="Silla"> Silla</label>
+                        <label class="check-label"><input type="checkbox" name="necesidades" value="Carpa"> Carpa</label>
+                        <label class="check-label"><input type="checkbox" name="necesidades" value="Punto eléctrico"> Punto eléctrico</label>
+                    </div>
                 </fieldset>
 
                 <label for="emp-equipo">Número de personas en tu equipo *</label>
-                <input type="number" id="emp-equipo" min="1" required>
+                <input type="number" id="emp-equipo" min="1" placeholder="Ej: 2" required>
 
                 <label for="emp-contacto">Teléfono de contacto (Opcional)</label>
-                <input type="tel" id="emp-contacto">
+                <input type="tel" id="emp-contacto" placeholder="Ej: 0987654321">
 
-                <button type="submit" class="btn btn-primary w-100">Enviar solicitud</button>
+                <button type="submit" class="btn btn-primary w-100">Enviar solicitud 💜</button>
                 <div id="emp-msg" aria-live="polite"></div>
             </form>
         </section>
 
         <section id="espacio-violeta" class="section bg-purple-overlay">
-            <h2 class="section-title">Espacio Violeta – Tu voz importa</h2>
-            <p>Un espacio seguro para compartir experiencias, cartas o reflexiones de forma completamente anónima. No guardamos IP ni pedimos datos personales.</p>
-            <form id="form-anonimo" class="accessible-form">
+            <div class="section-header">
+                <h2 class="section-title">Espacio Violeta – Tu voz importa</h2>
+                <p class="section-subtitle">Un espacio seguro para compartir experiencias, cartas o reflexiones de forma completamente anónima.<br>No guardamos IP ni pedimos datos personales.</p>
+            </div>
+            <form id="form-anonimo" class="accessible-form form-violeta">
                 <label for="anon-tipo">Tipo de mensaje</label>
                 <select id="anon-tipo">
                     <option value="Testimonio">Testimonio</option>
@@ -88,21 +132,22 @@
                 </select>
 
                 <label for="anon-texto">Tu mensaje (Máx 1500 caracteres) *</label>
-                <textarea id="anon-texto" maxlength="1500" required></textarea>
+                <textarea id="anon-texto" maxlength="1500" placeholder="Tu voz importa. Este espacio es tuyo." required></textarea>
                 <small id="char-count">0 / 1500</small>
 
-                <fieldset>
-                    <label><input type="checkbox" id="anon-micro"> Deseo que sea leído en el micrófono abierto</label>
-                    <label><input type="checkbox" id="anon-muro"> Quiero que sea publicado en el muro simbólico</label>
-                </fieldset>
+                <div class="check-group">
+                    <label class="check-label"><input type="checkbox" id="anon-micro"> Deseo que sea leído en el micrófono abierto</label>
+                    <label class="check-label"><input type="checkbox" id="anon-muro"> Quiero que sea publicado en el muro simbólico</label>
+                </div>
 
-                <button type="submit" class="btn btn-secondary w-100">Enviar de forma segura</button>
+                <button type="submit" class="btn btn-secondary w-100">Enviar de forma segura 🔒</button>
                 <div id="anon-msg" aria-live="polite"></div>
             </form>
         </section>
     </main>
 
     <footer>
+        <p class="footer-quote">"Juntas somos más fuertes."</p>
         <p>Construimos comunidad juntxs.<br><strong>6M – Donde cabemos todxs. 💜</strong></p>
     </footer>
 
