@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6M – Donde cabemos todxs | FLACSO</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="theme-toggle" aria-label="Alternar modo oscuro">🌙/☀️</button>
+
+    <header class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content fade-in">
+            <h1>6M – Donde cabemos todxs</h1>
+            <p>Este viernes 6 de marzo a las 16:00 abrimos un espacio para hacer memoria, alzar la voz y crear un espacio colectivo de reflexión, denuncia y resistencia.</p>
+            <div class="countdown" id="countdown">Cargando contador...</div>
+            <div class="cta-buttons">
+                <a href="#emprendimientos" class="btn btn-primary">Registrar emprendimiento</a>
+                <a href="#espacio-violeta" class="btn btn-secondary">Compartir experiencia</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="actividades" class="section">
+            <h2 class="section-title">Actividades de la Jornada</h2>
+            <p class="section-subtitle">Este será un espacio de respeto, escucha y acompañamiento. No estás sola. Tu voz importa.</p>
+            <div class="grid-cards">
+                <div class="card"><h3>🎤 Micrófono abierto</h3></div>
+                <div class="card"><h3>🎨 Carteleada</h3></div>
+                <div class="card"><h3>🖐️ Sábana "Me Too" y muro de la memoria</h3></div>
+                <div class="card"><h3>🛍️ Feria de emprendimientos</h3></div>
+                <div class="card"><h3>🎶 Ensamble musical Sol Violeta</h3></div>
+                <div class="card"><h3>☕ Canelazo</h3></div>
+            </div>
+        </section>
+
+        <section id="emprendimientos" class="section bg-light">
+            <h2 class="section-title">Registra tu Emprendimiento</h2>
+            <form id="form-emprendimiento" class="accessible-form">
+                <label for="emp-nombre">Nombre del emprendimiento *</label>
+                <input type="text" id="emp-nombre" required>
+
+                <label for="emp-tipo">Tipo de emprendimiento *</label>
+                <select id="emp-tipo" required>
+                    <option value="Artesanías">Artesanías</option>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Servicios">Servicios</option>
+                    <option value="Productos culturales">Productos culturales</option>
+                    <option value="Otro">Otro</option>
+                </select>
+
+                <label for="emp-desc">Breve descripción *</label>
+                <textarea id="emp-desc" required></textarea>
+
+                <fieldset>
+                    <legend>¿Qué necesitas para el día del evento?</legend>
+                    <label><input type="checkbox" name="necesidades" value="Stand"> Stand</label>
+                    <label><input type="checkbox" name="necesidades" value="Mesa"> Mesa</label>
+                    <label><input type="checkbox" name="necesidades" value="Silla"> Silla</label>
+                    <label><input type="checkbox" name="necesidades" value="Carpa"> Carpa</label>
+                    <label><input type="checkbox" name="necesidades" value="Punto eléctrico"> Punto eléctrico</label>
+                </fieldset>
+
+                <label for="emp-equipo">Número de personas en tu equipo *</label>
+                <input type="number" id="emp-equipo" min="1" required>
+
+                <label for="emp-contacto">Teléfono de contacto (Opcional)</label>
+                <input type="tel" id="emp-contacto">
+
+                <button type="submit" class="btn btn-primary w-100">Enviar solicitud</button>
+                <div id="emp-msg" aria-live="polite"></div>
+            </form>
+        </section>
+
+        <section id="espacio-violeta" class="section bg-purple-overlay">
+            <h2 class="section-title">Espacio Violeta – Tu voz importa</h2>
+            <p>Un espacio seguro para compartir experiencias, cartas o reflexiones de forma completamente anónima. No guardamos IP ni pedimos datos personales.</p>
+            <form id="form-anonimo" class="accessible-form">
+                <label for="anon-tipo">Tipo de mensaje</label>
+                <select id="anon-tipo">
+                    <option value="Testimonio">Testimonio</option>
+                    <option value="Carta">Carta</option>
+                    <option value="Reflexión">Reflexión</option>
+                    <option value="Mensaje colectivo">Mensaje colectivo</option>
+                </select>
+
+                <label for="anon-texto">Tu mensaje (Máx 1500 caracteres) *</label>
+                <textarea id="anon-texto" maxlength="1500" required></textarea>
+                <small id="char-count">0 / 1500</small>
+
+                <fieldset>
+                    <label><input type="checkbox" id="anon-micro"> Deseo que sea leído en el micrófono abierto</label>
+                    <label><input type="checkbox" id="anon-muro"> Quiero que sea publicado en el muro simbólico</label>
+                </fieldset>
+
+                <button type="submit" class="btn btn-secondary w-100">Enviar de forma segura</button>
+                <div id="anon-msg" aria-live="polite"></div>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>Construimos comunidad juntxs.<br><strong>6M – Donde cabemos todxs. 💜</strong></p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
