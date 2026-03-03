@@ -59,7 +59,7 @@ document.getElementById('form-anonimo').addEventListener('submit', async (e) => 
         tipo: document.getElementById('anon-tipo').value,
         texto: texto,
         leer_microfono: document.getElementById('anon-micro').checked,
-        publicar_muro: document.getElementById('anon-muro').checked
+        publicar_muro: false // <-- ¡AQUÍ ESTÁ EL CAMBIO! Ya no busca el elemento borrado.
     };
 
     const res = await fetch('/api/testimonios', {
