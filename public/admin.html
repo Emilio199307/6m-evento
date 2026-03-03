@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Admin Licha – 6M</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #5B0F8C; --primary-light: #7B2FBE; --accent: #C084FC;
+            --bg: #F3EDF9; --card: #FFFFFF; --text: #1A1A2E;
+            --muted: #6B6B80; --border: #E2D9F3;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); }
+
+        #login-screen {
+            min-height: 100vh; display: flex; align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #3B0068, #7B2FBE);
+        }
+        .login-box {
+            background: white; padding: 2.5rem; border-radius: 16px;
+            width: 100%; max-width: 380px; text-align: center;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+        .login-box h1 { font-family: 'Playfair Display', serif; color: var(--primary); font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .login-box p { color: var(--muted); font-size: 0.9rem; margin-bottom: 1.5rem; }
+        .login-box input {
+            width: 100%; padding: 0.75rem 1rem; border: 1.5px solid var(--border);
+            border-radius: 8px; margin-bottom: 1rem; font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+        .login-box input:focus { outline: none; border-color: var(--primary-light); }
+        .login-btn {
+            width: 100%; padding: 0.85rem; background: var(--primary); color: white;
+            border: none; border-radius: 8px; font-size: 1rem; font-weight: 600;
+            cursor: pointer;
+        }
+        .login-btn:hover { background: var(--primary-light); }
+        .login-error { color: #dc2626; font-size: 0.85rem; margin-top: 0.75rem; }
+
+        #dashboard { display: none; }
+
+        .topbar {
+            background: linear-gradient(135deg, #3B0068, #7B2FBE);
+            color: white; padding: 1rem 2rem;
+            display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+        }
+        .topbar h1 { font-family: 'Playfair Display', serif; font-size: 1.4rem; }
+        .topbar-right { display: flex; gap: 0.75rem; }
+        .refresh-btn {
+            background: rgba(255,255,255,0.2); color: white; border: 1px solid rgba(255,255,255,0.4);
+            padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem; font-weight: 600;
+        }
+        .logout-btn {
+            background: transparent; color: white; border: 1px solid rgba(255,255,255,0.4);
+            padding: 0.4rem 1rem; border-radius: 6px; cursor: pointer; font-size: 0.85rem;
+        }
+
+        .content { padding: 2rem; max-width: 1200px; margin: 0 auto; }
+
+        .stats-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            gap: 1rem; margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--card); padding: 1.5rem; border-radius: 12px;
+            border: 1px solid var(--border); text-align: center;
+            box-shadow: 0 2px 10px rgba(91,15,140,0.08);
+        }
+        .stat-num { font-size: 2.5rem; font-weight: 700; color: var(--primary); line-height: 1; }
+        .stat-label { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
+
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+        .tab {
+            padding: 0.6rem 1.2rem; border-radius: 8px; border: 1.5px solid var(--border);
+            background: var(--card); cursor: pointer; font-weight: 600; font-size: 0.9rem;
+            font-family: 'DM Sans', sans-serif; transition: all 0.2s;
+        }
+        .tab.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .tab:hover:not(.active) { border-color: var(--primary-light); color: var(--primary); }
+
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        .table-wrap {
+            background: var(--card); border-radius: 12px; border: 1px solid var(--border);
+            overflow-x: auto; box-shadow: 0 2px 10px rgba(91,15,140,0.08);
+        }
+        table { width: 100%; border-collapse: collapse; }
+        thead { background: var(--bg); }
+        th { padding: 0.9rem 1rem; text-align: left; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--muted); border-bottom: 1px solid var(--border); }
+        td { padding: 0.9rem 1rem; font-size: 0.9rem; border-bottom: 1px solid var(--border); vertical-align: top; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background: var(--bg); }
+
+        .badge { display: inline-block; padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.75rem; font-weight: 600; margin: 0.1rem; }
+        .badge-purple { background: #ede9fe; color: #6d28d9; }
+        .badge-green { background: #dcfce7; color: #166534; }
+
+        .logistica-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; }
+        .log-card {
+            background: var(--card); border: 1px solid var(--border); border-radius: 12px;
+            padding: 1.5rem; text-align: center; box-shadow: 0 2px 10px rgba(91,15,140,0.08);
+        }
+        .log-num { font-size: 2rem; font-weight: 700; color: var(--primary-light); }
+        .log-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+        .empty { text-align: center; padding: 3rem; color: var(--muted); }
+        .empty-icon { font-size: 2.5rem; margin-bottom: 0.5rem; }
+        .testimonio-texto { max-width: 320px; white-space: pre-wrap; word-break: break-word; font-size: 0.88rem; }
+
+        @media (max-width: 600px) {
+            .content { padding: 1rem; }
+            .topbar { padding: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="login-screen">
+    <div class="login-box">
+        <div style="font-size:2.5rem;margin-bottom:0.5rem">💜</div>
+        <h1>Panel Admin</h1>
+        <p>6M – Donde cabemos todxs</p>
+        <input type="text" id="login-user" placeholder="Usuario" />
+        <input type="password" id="login-pass" placeholder="Contraseña" />
+        <button class="login-btn" onclick="doLogin()">Ingresar</button>
+        <p class="login-error" id="login-error"></p>
+    </div>
+</div>
+
+<div id="dashboard">
+    <div class="topbar">
+        <h1>💜 Panel Admin – 6M</h1>
+        <div class="topbar-right">
+            <button class="refresh-btn" onclick="loadAll()">↻ Actualizar</button>
+            <button class="logout-btn" onclick="doLogout()">Cerrar sesión</button>
+        </div>
+    </div>
+    <div class="content">
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-num" id="stat-emp">–</div><div class="stat-label">Emprendimientos</div></div>
+            <div class="stat-card"><div class="stat-num" id="stat-test">–</div><div class="stat-label">Testimonios</div></div>
+            <div class="stat-card"><div class="stat-num" id="stat-micro">–</div><div class="stat-label">Para micrófono</div></div>
+        </div>
+
+        <div class="tabs">
+            <button class="tab active" onclick="showTab('emprendimientos', this)">🛍️ Emprendimientos</button>
+            <button class="tab" onclick="showTab('testimonios', this)">💬 Testimonios</button>
+            <button class="tab" onclick="showTab('logistica', this)">📦 Logística</button>
+        </div>
+
+        <div id="tab-emprendimientos" class="tab-content active">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>#</th><th>Nombre</th><th>Tipo</th><th>Descripción</th><th>Necesidades</th><th>Equipo</th><th>Contacto</th></tr></thead>
+                    <tbody id="tabla-emp"><tr><td colspan="7" class="empty"><div class="empty-icon">⏳</div>Cargando...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-testimonios" class="tab-content">
+            <div class="table-wrap">
+                <table>
+                    <thead><tr><th>#</th><th>Tipo</th><th>Mensaje</th><th>Micrófono</th></tr></thead>
+                    <tbody id="tabla-test"><tr><td colspan="4" class="empty"><div class="empty-icon">⏳</div>Cargando...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="tab-logistica" class="tab-content">
+            <div class="logistica-grid" id="logistica-grid">
+                <div class="empty"><div class="empty-icon">⏳</div>Cargando...</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+let authHeader = '';
+
+function doLogin() {
+    const user = document.getElementById('login-user').value;
+    const pass = document.getElementById('login-pass').value;
+    authHeader = 'Basic ' + btoa(user + ':' + pass);
+    fetch('/api/admin/logistica', { headers: { 'Authorization': authHeader } })
+        .then(r => { if (r.status === 401) throw new Error('Usuario o contraseña incorrectos'); return r.json(); })
+        .then(() => {
+            document.getElementById('login-screen').style.display = 'none';
+            document.getElementById('dashboard').style.display = 'block';
+            loadAll();
+        })
+        .catch(err => { document.getElementById('login-error').textContent = err.message; });
+}
+
+function doLogout() {
+    authHeader = '';
+    document.getElementById('login-screen').style.display = 'flex';
+    document.getElementById('dashboard').style.display = 'none';
+    document.getElementById('login-user').value = '';
+    document.getElementById('login-pass').value = '';
+}
+
+document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && document.getElementById('login-screen').style.display !== 'none') doLogin();
+});
+
+function showTab(name, btn) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    btn.classList.add('active');
+}
+
+function loadAll() { loadEmprendimientos(); loadTestimonios(); loadLogistica(); }
+
+function loadEmprendimientos() {
+    fetch('/api/admin/emprendimientos', { headers: { 'Authorization': authHeader } })
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('stat-emp').textContent = data.length;
+            const tbody = document.getElementById('tabla-emp');
+            if (!data.length) { tbody.innerHTML = '<tr><td colspan="7" class="empty"><div class="empty-icon">📭</div>Aún no hay emprendimientos</td></tr>'; return; }
+            tbody.innerHTML = data.map((e, i) => {
+                let nec = [];
+                try { nec = JSON.parse(e.necesidades); } catch(x) { nec = [e.necesidades]; }
+                return `<tr>
+                    <td>${i+1}</td>
+                    <td><strong>${e.nombre}</strong></td>
+                    <td><span class="badge badge-purple">${e.tipo}</span></td>
+                    <td>${e.descripcion}</td>
+                    <td>${nec.map(n=>`<span class="badge badge-green">${n}</span>`).join('')}</td>
+                    <td>${e.equipo}</td>
+                    <td>${e.contacto || '—'}</td>
+                </tr>`;
+            }).join('');
+        });
+}
+
+function loadTestimonios() {
+    fetch('/api/admin/testimonios', { headers: { 'Authorization': authHeader } })
+        .then(r => r.json())
+        .then(data => {
+            document.getElementById('stat-test').textContent = data.length;
+            document.getElementById('stat-micro').textContent = data.filter(t => t.leer_microfono).length;
+            const tbody = document.getElementById('tabla-test');
+            if (!data.length) { tbody.innerHTML = '<tr><td colspan="4" class="empty"><div class="empty-icon">📭</div>Aún no hay testimonios</td></tr>'; return; }
+            tbody.innerHTML = data.map((t, i) => `<tr>
+                <td>${i+1}</td>
+                <td><span class="badge badge-purple">${t.tipo}</span></td>
+                <td><div class="testimonio-texto">${t.texto}</div></td>
+                <td>${t.leer_microfono ? '🎤 Sí' : '—'}</td>
+            </tr>`).join('');
+        });
+}
+
+function loadLogistica() {
+    fetch('/api/admin/logistica', { headers: { 'Authorization': authHeader } })
+        .then(r => r.json())
+        .then(data => {
+            const grid = document.getElementById('logistica-grid');
+            const items = Object.entries(data.resumen);
+            grid.innerHTML = items.map(([k,v]) => `
+                <div class="log-card">
+                    <div class="log-num">${v}</div>
+                    <div class="log-label">${k}</div>
+                </div>`).join('');
+        });
+}
+</script>
+</body>
+</html>
